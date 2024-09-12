@@ -2,7 +2,7 @@ import Link from "next/link";
 import React from "react";
 import Logo from "@/public/logo.svg";
 import Image from "next/image";
-import { DashboardItems } from "@/components/DashboardItems";
+import { DashboardItems } from "@/components/dashboard/DashboardItems";
 import { CircleUser, DollarSign, Globe, House } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
