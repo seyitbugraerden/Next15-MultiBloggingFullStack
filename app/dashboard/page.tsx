@@ -1,6 +1,6 @@
 import React from "react";
 
-const DashboardIndexPage = () => {
+const DashboardIndexPage = async () => {
   return (
     <div>
       <h1>Hello from Dashboard</h1>

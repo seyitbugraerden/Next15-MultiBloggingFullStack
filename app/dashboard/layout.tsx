@@ -3,7 +3,16 @@ import React from "react";
 import Logo from "@/public/logo.svg";
 import Image from "next/image";
 import { DashboardItems } from "@/components/DashboardItems";
-import { DollarSign, Globe, House } from "lucide-react";
+import { CircleUser, DollarSign, Globe, House } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { ThemeToogle } from "@/components/ThemeToggle";
 export const navLinks = [
   {
     name: "Dashboard",
@@ -40,6 +49,33 @@ const DashboardLayout: React.FC<any> = ({ children }) => {
             </nav>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col">
+        <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+          <div className="ml-auto flex items-center gap-x-5">
+            <ThemeToogle />
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="secondary"
+                  size="icon"
+                  className="rounded-full"
+                >
+                  <CircleUser className="h-5 w-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <LogoutLink>Log out</LogoutLink>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </header>
+        <main className="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
+          {children}
+        </main>
       </div>
     </section>
   );
