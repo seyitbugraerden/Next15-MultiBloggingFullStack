@@ -1,11 +1,31 @@
+import {
+  RegisterLink,
+  LogoutLink,
+  LoginLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 
-export default function Home() {
+export default async function Home() {
+  const { getUser } = getKindeServerSession();
+  const session = await getUser();
+
   return (
     <>
-      <p>Starting Our Project</p>
-      <Button>Hello There</Button>
+      {session ? (
+        <LogoutLink>
+          <Button>Log out</Button>
+        </LogoutLink>
+      ) : (
+        <>
+          <LoginLink postLoginRedirectURL="/dashboard">
+            <Button>Login</Button>
+          </LoginLink>
+          <RegisterLink postLoginRedirectURL="/welcome">
+            <Button>Register</Button>
+          </RegisterLink>
+        </>
+      )}
     </>
   );
 }
