@@ -18,10 +18,10 @@ export default async function Home() {
         </LogoutLink>
       ) : (
         <>
-          <LoginLink postLoginRedirectURL="/dashboard">
+          <LoginLink postLoginRedirectURL="/api/auth/creation">
             <Button>Login</Button>
           </LoginLink>
-          <RegisterLink postLoginRedirectURL="/welcome">
+          <RegisterLink postLoginRedirectURL="/api/auth/creation">
             <Button>Register</Button>
           </RegisterLink>
         </>
