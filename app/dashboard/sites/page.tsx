@@ -54,7 +54,7 @@ export default async function SitesRoute() {
           href="/dashboard/sites/new"
         />
       ) : (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 lg:gap-7">
           {data.map((item) => (
             <Card key={item.id}>
               <Image
