@@ -6,7 +6,7 @@ import { parseWithZod } from "@conform-to/zod";
 import { siteSchmea } from "./utils/zodSchemas";
 import prisma from "./utils/db";
 
-const CreateSiteAction = async (prevState: any, formData: FormData) => {
+export const CreateSiteAction = async (prevState: any, formData: FormData) => {
   const { getUser } = getKindeServerSession();
 
   const user = await getUser();
@@ -31,4 +31,29 @@ const CreateSiteAction = async (prevState: any, formData: FormData) => {
   return redirect("/dashboard/sites");
 };
 
-export default CreateSiteAction;
+export const CreatePostAction = async (prevState: any, formData: FormData) => {
+  const { getUser } = getKindeServerSession();
+
+  const user = await getUser();
+  if (!user) {
+    return redirect("api/auth/login");
+  }
+  const submission = parseWithZod(formData, {
+    schema: siteSchmea,
+  });
+  if (submission.status !== "success") {
+    return submission.reply();
+  }
+  const response = await prisma.post.create({
+    data: {
+      title: submission.value.title,
+      smallDescription: submission.value.smallDescription,
+      slug: submission.value.slug,
+      articleContent: JSON.parse(submission.value.articleContent),
+      image: submission.value.coverImage,
+      userId: user.id,
+      siteId: formData.get("siteId") as string,
+    },
+  });
+  return redirect(`/dashboard/sites/${formData.get("siteId")}`);
+};
