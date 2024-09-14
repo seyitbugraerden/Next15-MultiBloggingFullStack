@@ -1,9 +1,24 @@
+import prisma from "@/app/utils/db";
 import { Button } from "@/components/ui/button";
+import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Book, PlusCircle, Settings } from "lucide-react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const SiteIdRoute = () => {
+async function getData() {
+  const data = await prisma.post.findMany({
+    where: {},
+  });
+}
+
+const SiteIdRoute = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+
+  if (!user) {
+    return redirect("/api/auth/login");
+  }
   return (
     <>
       <div className="flex w-full justify-end gap-x-4">
