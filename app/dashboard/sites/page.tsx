@@ -21,7 +21,7 @@ async function getData(userId: string) {
       userId: userId,
     },
     orderBy: {
-      creadetAt: "desc",
+      createdAt: "desc",
     },
   });
 
@@ -66,7 +66,7 @@ export default async function SitesRoute() {
               />
               <CardHeader>
                 <CardTitle className="truncate">{item.name}</CardTitle>
-                <CardDescription className="line-clamp-3">
+                <CardDescription className="line-clamp-1">
                   {item.description}
                 </CardDescription>
               </CardHeader>
