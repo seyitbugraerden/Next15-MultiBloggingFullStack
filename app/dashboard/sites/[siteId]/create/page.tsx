@@ -1,5 +1,6 @@
 "use client";
 import { CreatePostAction } from "@/app/actions";
+import { UploadDropzone } from "@/app/utils/UploadthingComponents";
 import { PostSchema } from "@/app/utils/zodSchemas";
 import { SubmitButton } from "@/components/dashboard/SubmitButton";
 import { Button } from "@/components/ui/button";
@@ -16,8 +17,10 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@conform-to/react";
 import { parseWithZod } from "@conform-to/zod";
 import { ArrowLeft, Atom } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React, { useActionState, useState } from "react";
+import { toast } from "sonner";
 
 const ArticleCreationRoute = ({ params }: { params: { siteId: string } }) => {
   const [imageUrl, setImageUrl] = useState<undefined | string>(undefined);
@@ -113,6 +116,26 @@ const ArticleCreationRoute = ({ params }: { params: { siteId: string } }) => {
                 defaultValue={fields.coverImage.initialValue}
                 value={imageUrl}
               />
+              {imageUrl ? (
+                <Image
+                  src={imageUrl}
+                  alt="Uploaded Image"
+                  className="object-cover w-[200px] h-[200px] rounded-lg"
+                  width={200}
+                  height={200}
+                />
+              ) : (
+                <UploadDropzone
+                  onClientUploadComplete={(res) => {
+                    setImageUrl(res[0].url);
+                    toast.success("Image has been Uploaded");
+                  }}
+                  endpoint="imageUploader"
+                  onUploadError={() => {
+                    toast.error("Something Went Wrong");
+                  }}
+                />
+              )}
 
               <p className="text-red-500 text-sm">{fields.coverImage.errors}</p>
             </div>

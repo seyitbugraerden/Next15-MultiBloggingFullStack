@@ -8,8 +8,8 @@ export const siteSchmea = z.object({
 
 export const PostSchema = z.object({
   title: z.string().min(1).max(100),
-  slug: z.string().min(1).max(190),
+  articleContent: z.string().min(1),
   smallDescription: z.string().min(1).max(200),
   coverImage: z.string().min(1),
-  articleContent: z.string().min(1),
+  slug: z.string().min(1).max(190),
 });
