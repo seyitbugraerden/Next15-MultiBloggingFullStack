@@ -23,4 +23,19 @@ model User {
   customerId   String? @unique
 
   createdAt DateTime @default(now())
+
+  Site Site[]
+}
+
+model Site {
+  id           String   @id @default(uuid())
+  name         String
+  description  String
+  subDirectory String   @unique
+  creadetAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  imageUrl String?
+  User     User?   @relation(fields: [userId], references: [id]) //User bilgileri buraya taşınır.
+  userId   String?
 }
