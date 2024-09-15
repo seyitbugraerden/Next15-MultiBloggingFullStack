@@ -128,11 +128,11 @@ const ArticleCreationRoute = ({ params }: { params: { siteId: string } }) => {
                 <UploadDropzone
                   onClientUploadComplete={(res) => {
                     setImageUrl(res[0].url);
-                    toast.success("Image has been Uploaded");
+                    toast.success("Image has been uploaded");
                   }}
                   endpoint="imageUploader"
                   onUploadError={() => {
-                    toast.error("Something Went Wrong");
+                    toast.error("Something went wrong...");
                   }}
                 />
               )}
