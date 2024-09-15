@@ -2,6 +2,7 @@
 import { CreatePostAction } from "@/app/actions";
 import { UploadDropzone } from "@/app/utils/UploadthingComponents";
 import { PostSchema } from "@/app/utils/zodSchemas";
+import TailwindEditor from "@/components/dashboard/EditorWrapper";
 import { SubmitButton } from "@/components/dashboard/SubmitButton";
 import { Button } from "@/components/ui/button";
 import {
@@ -149,8 +150,8 @@ const ArticleCreationRoute = ({ params }: { params: { siteId: string } }) => {
                 defaultValue={fields.articleContent.initialValue}
                 value={JSON.stringify(value)}
               />
+              <TailwindEditor onChange={setValue} initialValue={value} />
               <p className="text-red-500 text-sm">
-                {" "}
                 {fields.articleContent.errors}
               </p>
             </div>
