@@ -51,5 +51,5 @@ export const CreatePostAction = async (prevState: any, formData: FormData) => {
       siteId: formData.get("siteId") as string,
     },
   });
-  return redirect(`/dashboard/sites`);
+  return redirect(`/dashboard/sites/${formData.get("siteId")}`);
 };
