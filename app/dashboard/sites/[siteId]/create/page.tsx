@@ -22,6 +22,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useActionState, useState } from "react";
 import { toast } from "sonner";
+import slugify from "react-slugify";
 
 const ArticleCreationRoute = ({ params }: { params: { siteId: string } }) => {
   const [imageUrl, setImageUrl] = useState<undefined | string>(undefined);
@@ -40,6 +41,17 @@ const ArticleCreationRoute = ({ params }: { params: { siteId: string } }) => {
     shouldValidate: "onBlur",
     shouldRevalidate: "onInput",
   });
+  function handleSlugGeneration() {
+    const titleInput = title;
+
+    if (titleInput?.length === 0 || titleInput === undefined) {
+      return toast.error("Pleaes create a title first");
+    }
+
+    setSlugValue(slugify(titleInput));
+
+    return toast.success("Slug has been created");
+  }
   return (
     <>
       <div className="flex items-center">
@@ -88,7 +100,12 @@ const ArticleCreationRoute = ({ params }: { params: { siteId: string } }) => {
                 onChange={(e) => setSlugValue(e.target.value)}
                 value={slug}
               />
-              <Button className="w-fit" variant="secondary" type="button">
+              <Button
+                onClick={handleSlugGeneration}
+                className="w-fit"
+                variant="secondary"
+                type="button"
+              >
                 <Atom className="size-4 mr-2" /> Generate Slug
               </Button>
               <p className="text-red-500 text-sm">{fields.slug.errors}</p>

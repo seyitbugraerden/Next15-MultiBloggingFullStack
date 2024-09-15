@@ -3,8 +3,9 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
 import { parseWithZod } from "@conform-to/zod";
-import { siteSchmea } from "./utils/zodSchemas";
+import { PostSchema, siteSchmea } from "./utils/zodSchemas";
 import prisma from "./utils/db";
+import { requireUser } from "./requireUser";
 
 export const CreateSiteAction = async (prevState: any, formData: FormData) => {
   const { getUser } = getKindeServerSession();
@@ -32,14 +33,9 @@ export const CreateSiteAction = async (prevState: any, formData: FormData) => {
 };
 
 export const CreatePostAction = async (prevState: any, formData: FormData) => {
-  const { getUser } = getKindeServerSession();
-
-  const user = await getUser();
-  if (!user) {
-    return redirect("api/auth/login");
-  }
+  const user = await requireUser();
   const submission = parseWithZod(formData, {
-    schema: siteSchmea,
+    schema: PostSchema,
   });
   if (submission.status !== "success") {
     return submission.reply();
@@ -55,5 +51,5 @@ export const CreatePostAction = async (prevState: any, formData: FormData) => {
       siteId: formData.get("siteId") as string,
     },
   });
-  return redirect(`/dashboard/sites/${formData.get("siteId")}`);
+  return redirect(`/dashboard/sites`);
 };
