@@ -28,12 +28,7 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
-import {
-  Book,
-  MoreHorizontal,
-  PlusCircle,
-  Settings,
-} from "lucide-react";
+import { Book, MoreHorizontal, PlusCircle, Settings } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -70,19 +65,19 @@ const SiteIdRoute = async ({ params }: { params: { siteId: string } }) => {
     <>
       <div className="flex w-full justify-end gap-x-4">
         <Button asChild variant="secondary">
-          <Link href="#">
+          <Link href={`/dashboard/sites/${params.siteId}`}>
             <Book className="size-4 mr-2" />
             View Blog
           </Link>
         </Button>
         <Button asChild variant="secondary">
-          <Link href="#">
+          <Link href={`/dashboard/sites/${params.siteId}/settings`}>
             <Settings className="size-4 mr-2" />
             Settings
           </Link>
         </Button>
         <Button asChild>
-          <Link href="#">
+          <Link href={`/dashboard/sites/${params.siteId}/create`}>
             <PlusCircle className="size-4 mr-2" />
             Create Article
           </Link>
